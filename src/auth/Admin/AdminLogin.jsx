@@ -69,8 +69,10 @@ const AdminLogin = () => {
 
             {/* form */}
         <div className='flex w-full justify-center items-center pt-6 md:flex-row flex-col'>
+        <div className='bg-white/50 p-1 rounded-[50%]'>
             <img className='md:w-[300px] md:h-[300px] w-[150px] h-[150px]' 
             src="/owner.png" alt="" />
+            </div>
 
     <div className='w-[80%] md:w-[60%] flex flex-col items-center justify-center  gap-4 '>
        <h1 className='text-2xl font-extrabold'>Owner Login Form</h1>

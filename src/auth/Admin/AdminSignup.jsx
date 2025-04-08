@@ -68,8 +68,11 @@ const AdminSignup = () => {
         </div>
 
         <div className='flex w-full justify-center items-center md:flex-row flex-col pt-6'>
+        <div className='bg-white/50 p-1 rounded-[50%]'>
             <img className='md:w-[300px] md:h-[300px] w-[150px] h-[150px]' 
             src="/owner.png" alt="" />
+            </div>
+
     <div className='w-[80%] md:w-[60%] flex flex-col items-center justify-center  gap-4'>
         <h1 className='text-2xl font-extrabold'>Owner Signup Form</h1>
         <form className='flex flex-col items-center w-[80%] md:w-[50%] bg-violet-500 gap-5 pt-2 pb-2 shadow-xl shadow-blue-600/50'

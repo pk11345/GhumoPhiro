@@ -7,7 +7,7 @@ const Dashboard = () => {
     <>
     <div className='w-full bg-gray-400/70 shadow-2xl shadow-black sticky top-0 z-99'>
     <div className='nav w-full flex justify-between pt-3 pb-4 pl-3 pr-3 md:pl-6 md:pr-6 gap-3 '>
-      <h1 className='text-2xl text-blue-700 font-bold italic flex items-center'>Ghumo
+      <h1 className='text-2xl text-blue-400 font-bold italic flex items-center'>Ghumo
         <span className='font-extrabold text-white'>Phiro</span>
         <span><img className='w-[40px]'
         src="/logo.png" alt="" /></span>

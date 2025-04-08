@@ -19,7 +19,7 @@ const HomeContent = () => {
       
 
   return (
-    <div className="text-gray-800 bg-gradient-to-r from-[#1151da] to-[#84a0c0] bg-[url('https://www.transparenttextures.com/patterns/white-wall-3.png')]">
+    <div className="text-white ">
       {/* Hero Section */}
       <section className="relative h-[500px]">
         <img
@@ -36,9 +36,9 @@ const HomeContent = () => {
       </section>
 
       {/* About Section */}
-      <section className="py-16 px-4 md:px-20 bg-gradient-to-r from-[#79a2cc] to-[#2e61a5]">
+      <section className="py-16 px-4 md:px-20 ">
         <h2 className="text-3xl font-bold text-center mb-6">About Us</h2>
-        <p className="max-w-3xl mx-auto text-center text-lg leading-relaxed">
+        <p className="max-w-3xl mx-auto text-center text-lg font-semibold text-purple-600 bg-white/80 p-3 rounded-2xl">
           At GhumoPhiro, we make hotel booking seamless and stress-free. Whether you’re planning a
           vacation or a business trip, our platform offers curated stays across top-rated hotels and
           unique locations. With 24/7 support and user-friendly features, we’re here to make every journey
@@ -47,14 +47,14 @@ const HomeContent = () => {
       </section>
 
       {/* Popular Destinations */}
-      <section className="py-16 px-4 md:px-20 bg-gradient-to-r from-[#2e61a5] to-[#79a2cc]">
+      <section className="py-16 px-4 md:px-20 ">
         <h2 className="text-3xl font-bold text-center mb-10">Popular Destinations</h2>
         <div className="grid md:grid-cols-3 gap-6">
           {destinations.map((dest, index) => (
             <div key={index} className="rounded-lg overflow-hidden shadow-lg">
               <img src={dest.image} alt={dest.name} className="w-full h-60 object-cover" />
               <div className="p-4 text-center bg-white">
-                <h3 className="text-xl font-semibold">{dest.name}</h3>
+                <h3 className="text-xl font-semibold text-amber-500 italic">{dest.name}</h3>
               </div>
             </div>
           ))}
@@ -62,10 +62,10 @@ const HomeContent = () => {
       </section>
 
   
-
+      {/* bg-gradient-to-r from-[#79a2cc] to-[#2e61a5] */}
 {/* Testimonials Section - Updated */}
-<section className="py-16 px-4 md:px-20 bg-gradient-to-r from-[#79a2cc] to-[#2e61a5]">
-  <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">What Our Guests Say</h2>
+<section className="py-16 px-4 md:px-20 ">
+  <h2 className="text-4xl font-bold text-center mb-12 text-white">What Our Guests Say</h2>
   <div className="grid md:grid-cols-3 gap-8">
     {[
       {
@@ -112,8 +112,8 @@ const HomeContent = () => {
 </section>
 
 {/* Contact Us + List Your Property Section */}
-<section className="py-16 px-4 md:px-20 bg-gradient-to-r from-[#2e61a5] to-[#79a2cc]">
-  <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">Get in Touch</h2>
+<section className="py-16 px-4 md:px-20 ">
+  <h2 className="text-3xl font-bold text-center mb-6 text-white">Get in Touch</h2>
   <p className="max-w-2xl mx-auto text-center text-lg mb-12">
     Have questions, suggestions, or want to collaborate? We'd love to hear from you!
   </p>
@@ -123,17 +123,17 @@ const HomeContent = () => {
       <input
         type="text"
         placeholder="Your Name"
-        className="p-3 border border-gray-300 rounded-md"
+        className="p-3 border border-gray-300 rounded-md text-black"
       />
       <input
         type="email"
         placeholder="Your Email"
-        className="p-3 border border-gray-300 rounded-md"
+        className="p-3 border border-gray-300 rounded-md text-black"
       />
       <textarea
         placeholder="Your Message"
         rows="4"
-        className="p-3 border border-gray-300 rounded-md"
+        className="p-3 border border-gray-300 rounded-md text-black"
       ></textarea>
       <button
         type="submit"
@@ -144,7 +144,7 @@ const HomeContent = () => {
     </form>
 
     <div className="text-center mt-12">
-      <h3 className="text-2xl font-semibold mb-4 text-gray-800">List Your Property With Us</h3>
+      <h3 className="text-2xl font-bold mb-4 text-white">List Your Property With Us</h3>
       <p className="text-lg mb-4">
         Own a hotel, homestay, or unique property? Partner with GhumoPhiro to reach thousands of travelers!
       </p>

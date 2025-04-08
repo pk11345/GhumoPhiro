@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Route, Routes } from 'react-router-dom'
 import Dashboard from './components/Dashboard'
@@ -9,12 +9,28 @@ import UserLogin from './auth/User/UserLogin'
 import UserDashboard from './components/user/UserDashboard'
 import UserLogout from './components/user/UserLogout'
 import AdminDashboard from './components/admin/AdminDashboard'
+import Loader from './components/Loader'
 
 
 const App = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, []);
   return (
    <>
-   <div className='bg-gray-400/50 min-h-screen'>
+   <div className='app bg-gray-400/50 min-h-screen bg-cover bg-center bg-no-repeat text-white'
+   style={{
+    backgroundImage: "url('/texture.jpg')",
+  }}
+   >
+   {loading ? <Loader /> : 
+   <>
+    
     <Routes>
       <Route path='/' element={<Dashboard/>}/>
       <Route path='/AdminSignup' element={<AdminSignup/>}/>
@@ -25,7 +41,10 @@ const App = () => {
       <Route path='/Logout' element={<UserLogout/>}/>
       <Route path='/AdminDashboard' element={<AdminDashboard/>}/>
     </Routes>
-   </div>
+   
+   </>
+   }
+  </div>
    </>
   )
 }
