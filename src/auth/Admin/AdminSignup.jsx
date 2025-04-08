@@ -1,6 +1,8 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const AdminSignup = () => {
     const [email, setEmail] = useState("")
@@ -22,10 +24,10 @@ const AdminSignup = () => {
         .then((res) => {
             console.log("Response:", res.data);
             if (res.status === 201) {
-                alert("Signup successful!");
+                toast.success("Signup successful!");
                 setTimeout(() => {
                     navigate("/AdminLogin");
-                }, 1000);
+                }, 2000);
     
                 setEmail("");
                 setPassword("");
@@ -34,7 +36,7 @@ const AdminSignup = () => {
         })
         .catch((err) => {
             console.error("Signup Error:", err.response ? err.response.data : err.message);
-            alert("Something went wrong. Admin exist.");
+            toast.error("Something went wrong. Admin exist.");
         });
     
         
@@ -43,6 +45,7 @@ const AdminSignup = () => {
     
   return (
     <>
+    <ToastContainer/>
      <div className='w-full bg-gray-400/70 shadow-2xl shadow-black '>
         <div className='nav w-full flex justify-between pt-3 pb-4 pl-6 pr-6'>
           <h1 className='text-2xl text-blue-700 font-bold italic flex '>Ghumo
@@ -72,7 +75,7 @@ const AdminSignup = () => {
         <form className='flex flex-col items-center w-[80%] md:w-[50%] bg-violet-500 gap-5 pt-2 pb-2 shadow-xl shadow-blue-600/50'
         onSubmit={handleSubmit}>
 
-            <label className='text-xl font-semibold'
+            <label className='text-xl font-semibold' 
              htmlFor="name">Name</label>
             <input className='bg-white pt-1 pb-2 pl-3 w-[60%] text-xl text-black font-semibold outline-none'
              type="text" placeholder='Enter name' value={name} 

@@ -1,6 +1,8 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const UserSignup = () => {
     const [email, setEmail] = useState("")
@@ -20,14 +22,14 @@ const UserSignup = () => {
         .then((res) => {
             console.log("Response:", res.data);
             if (res.status === 201) {
-                alert("Signup successful!");
+                toast.success("Signup successful!");
             } else if (res.status === 400) {
-                alert("User already exists");
+                toast.error("User already exists");
             }
         })
         .catch((err) => {
             console.error("Signup Error:", err.response ? err.response.data : err.message);
-            alert("Something went wrong. Please try again.");
+            toast.error("Something went wrong. Please try again.");
         });
     
         setEmail("");
@@ -38,6 +40,7 @@ const UserSignup = () => {
     
   return (
     <>
+    <ToastContainer/>
      <div className='w-full bg-gray-400/70 shadow-2xl shadow-black '>
             <div className='nav w-full flex justify-between pt-3 pb-4 pl-6 pr-6'>
               <h1 className='text-2xl text-blue-700 font-bold italic flex '>Ghumo

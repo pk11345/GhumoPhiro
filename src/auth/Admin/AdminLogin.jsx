@@ -1,6 +1,8 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const AdminLogin = () => {
     const [email, setEmail] = useState("")
@@ -19,18 +21,21 @@ const AdminLogin = () => {
        .then((res) => {
            console.log("Response:", res.data);
            if (res.status === 200) {
-               alert("Login successful!");
+               toast.success("Login successful!");
                let cookie = document.cookie
                cookie= `token=${res.data.token}`
             //    console.log(cookie)
-               navigate("/AdminDashboard")
+            setTimeout(() => {
+                navigate("/AdminDashboard")
+            }, 2000);
+               
            } else if (res.status === 400) {
-               alert("Admin not exists");
+               toast.error("Admin not exists");
            }
        })
        .catch((err) => {
            console.error("Login Error:", err.response ? err.response.data : err.message);
-           alert("Something went wrong:Admin Not Found.");
+           toast.error("Something went wrong:Admin Not Found.");
        });
    
         setEmail("")
@@ -40,6 +45,7 @@ const AdminLogin = () => {
     }
   return (
     <>
+    <ToastContainer/>
      <div className='w-full bg-gray-400/70 shadow-2xl shadow-black '>
             <div className='nav w-full flex justify-between pt-3 pb-4 pl-6 pr-6'>
               <h1 className='text-2xl text-blue-700 font-bold italic flex '>Ghumo

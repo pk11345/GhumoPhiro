@@ -1,6 +1,8 @@
 import axios from 'axios'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const UserLogout = () => {
     const navigate = useNavigate()
@@ -15,8 +17,8 @@ const UserLogout = () => {
             
             setTimeout(() => {
                 navigate("/UserLogin")
-            }, 1000);
-            alert("Logged Out")
+            }, 2000);
+            toast.success("Logged Out")
         }
         catch(err){
             console.log(err)
@@ -24,8 +26,12 @@ const UserLogout = () => {
     }
   return (
     <>
+    <ToastContainer/>
     <div>
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={handleLogout}
+        className='cursor-pointer pt-1 pb-2 pl-2 pr-2 border-2 bg-red-500 border-white rounded-2xl 
+        text-lg font-semibold hover:bg-red-400'
+        >Logout</button>
     </div>
     </>
   )
