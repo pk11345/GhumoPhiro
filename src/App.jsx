@@ -23,7 +23,7 @@ const App = () => {
   }, []);
   return (
    <>
-   <div className='app bg-gray-400/50 min-h-screen bg-cover bg-center bg-no-repeat text-white'
+   <div className='app  min-h-screen bg-cover bg-center bg-no-repeat text-white'
    style={{
     backgroundImage: "url('/texture.jpg')",
   }}

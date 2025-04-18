@@ -19,7 +19,7 @@ const HomeContent = () => {
       
 
   return (
-    <div className="text-white ">
+    <div className="text-amber-600 ">
       {/* Hero Section */}
       <section className="relative h-[500px]">
         <img
@@ -51,7 +51,7 @@ const HomeContent = () => {
         <h2 className="text-3xl font-bold text-center mb-10">Popular Destinations</h2>
         <div className="grid md:grid-cols-3 gap-6">
           {destinations.map((dest, index) => (
-            <div key={index} className="rounded-lg overflow-hidden shadow-lg">
+            <div key={index} className="rounded-lg overflow-hidden shadow-lg  hover:scale-105 transition-all duration-300">
               <img src={dest.image} alt={dest.name} className="w-full h-60 object-cover" />
               <div className="p-4 text-center bg-white">
                 <h3 className="text-xl font-semibold text-amber-500 italic">{dest.name}</h3>
@@ -65,7 +65,7 @@ const HomeContent = () => {
       {/* bg-gradient-to-r from-[#79a2cc] to-[#2e61a5] */}
 {/* Testimonials Section - Updated */}
 <section className="py-16 px-4 md:px-20 ">
-  <h2 className="text-4xl font-bold text-center mb-12 text-white">What Our Guests Say</h2>
+  <h2 className="text-4xl font-bold text-center mb-12 text-amber-600">What Our Guests Say</h2>
   <div className="grid md:grid-cols-3 gap-8">
     {[
       {
@@ -113,7 +113,7 @@ const HomeContent = () => {
 
 {/* Contact Us + List Your Property Section */}
 <section className="py-16 px-4 md:px-20 ">
-  <h2 className="text-3xl font-bold text-center mb-6 text-white">Get in Touch</h2>
+  <h2 className="text-3xl font-bold text-center mb-6 text-amber-600">Get in Touch</h2>
   <p className="max-w-2xl mx-auto text-center text-lg mb-12">
     Have questions, suggestions, or want to collaborate? We'd love to hear from you!
   </p>

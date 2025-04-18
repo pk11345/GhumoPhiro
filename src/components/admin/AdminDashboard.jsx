@@ -4,9 +4,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import AdminLogout from './AdminLogout'
 import { FaUserCircle } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
+import AdminContent from './AdminContent';
 
 const AdminDashboard = () => {
     const [admin, setAdmin] = useState("")
+  
     const navigate = useNavigate()
   
   
@@ -21,14 +23,16 @@ const AdminDashboard = () => {
       catch(err){
         console.log(err)
         if (err.response && err.response.status === 401) {
-          toast.error("You have to login first");
-          setTimeout(() => navigate("/AdminLogin"), 2000); 
+          // toast.error("You have to login first");
+          // setTimeout(() => navigate("/AdminLogin"), 2000); 
         } 
       }
     }
     info()
   },[navigate])
     
+
+ 
   
     return (
       <>
@@ -44,7 +48,7 @@ const AdminDashboard = () => {
           
       <button 
       className='pt-1 pb-2 pl-2 pr-2 border-2 border-white rounded-2xl text-lg font-semibold hover:bg-white/40'
-      ><Link to="/">Home</Link>
+      ><Link to="/AdminDashboard">Home</Link>
       </button>
       {!admin?
       <>
@@ -66,11 +70,30 @@ const AdminDashboard = () => {
       </>
       }
           
-      {/* <AdminLogout/>
-      <h1>Hello {admin}</h1> */}
+  
       
           </div>
           </div>
+          </div>
+
+
+          <div className='flex flex-col items-center  pt-6'>
+            <h1 className='text-4xl font-bold italic text-yellow-800'>Want To List Your Property With Us?</h1>
+            <h2 className='text-2xl font-semibold text-black'>Register Or Login To Get Partenered With Us</h2>
+          </div>
+
+          
+
+          <div>
+            {
+              !admin? 
+              <>
+              
+              </>  
+              : <>
+              <AdminContent/>
+              </>
+            }
           </div>
    
       </>

@@ -31,10 +31,15 @@ const usermodel= new mongoose.model("user", userSchema)
 const adminSchema = new mongoose.Schema({
     name:String,
     email:String,
-    password:String
+    password:String,
+    images: [{
+      img:String,
+      hotelName :String,
+      hotelDesc : String
+    }]
 })
 
-const adminmodel= new mongoose.model("admin", userSchema)
+const adminmodel= new mongoose.model("admin", adminSchema)
 
 app.post("/UserSignup", async (req,res)=>{
     const {name,email,password}= req.body
@@ -195,6 +200,37 @@ app.post("/AdminLogin", async (req,res)=>{
             // else res.redirect("/UserLogin")
       }) //comparing password  
 })
+
+app.post("/upload-image", AdminIsLoggedIn, async (req, res) => {
+  const { imageUrl, hotelName, hotelDesc } = req.body;
+
+  if (!imageUrl || !hotelName || !hotelDesc) {
+    return res.status(400).send("All fields are required");
+  }
+
+  try {
+    const admin = await adminmodel.findOne({ email: req.admin.email });
+    if (!admin) {
+      return res.status(404).send("Admin not found");
+    }
+
+    admin.images.push({
+      img: imageUrl,
+      hotelName,
+      hotelDesc
+    });
+
+    await admin.save();
+
+    res.status(200).send({ message: "Image and details saved", images: admin.images });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+});
+
+
+
 
 function AdminIsLoggedIn(req, res, next) {
     // console.log(req.cookies,"cookies")
