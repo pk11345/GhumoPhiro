@@ -229,6 +229,9 @@ app.post("/upload-image", AdminIsLoggedIn, async (req, res) => {
   }
 });
 
+app.get("/upload-image",AdminIsLoggedIn, async (req,res)=>{
+  const {imageUrl,hotelName,hotelDesc} = req.body
+})
 
 
 

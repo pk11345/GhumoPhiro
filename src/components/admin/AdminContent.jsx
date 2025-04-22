@@ -1,5 +1,6 @@
 import React from 'react'
 import ImageUpload from './ImageUpload'
+import GetImage from './GetImage'
 
 const AdminContent = () => {
   return (
@@ -8,6 +9,9 @@ const AdminContent = () => {
         <h1 className='text-3xl text-black'>Admin Content</h1>
     </div>
     <ImageUpload/>
+    <div>
+      <GetImage/>
+    </div>
     </>
   )
 }
