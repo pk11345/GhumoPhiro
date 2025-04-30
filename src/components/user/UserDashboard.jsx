@@ -4,6 +4,7 @@ import UserLogout from './UserLogout'
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import { FaUserCircle } from "react-icons/fa";
+import UserContent from './UserContent';
 
 
 const UserDashboard = () => {
@@ -22,8 +23,8 @@ const UserDashboard = () => {
     catch(err){
       console.log(err)
       if (err.response && err.response.status === 401) {
-        toast.error("You have to login first");
-        setTimeout(() => navigate("/UserLogin"), 2000); 
+        // toast.error("You have to login first");
+        // setTimeout(() => navigate("/UserLogin"), 2000); 
       } 
     }
   }
@@ -67,12 +68,12 @@ const UserDashboard = () => {
       </>
       }
          
-       {/* <UserLogout/>
-    <h1>Hello {user}</h1> */}
-      
+        
           </div>
           </div>
           </div>
+
+          <UserContent/>
    
     </>
   )
