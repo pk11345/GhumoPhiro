@@ -229,9 +229,20 @@ app.post("/upload-image", AdminIsLoggedIn, async (req, res) => {
   }
 });
 
-app.get("/upload-image",AdminIsLoggedIn, async (req,res)=>{
-  const {imageUrl,hotelName,hotelDesc} = req.body
-})
+// app.get("/upload-image",AdminIsLoggedIn, async (req,res)=>{
+//   const {imageUrl,hotelName,hotelDesc} = req.body
+// })
+
+app.get("/getHotels", async (req, res) => {
+  try {
+    const admins = await adminmodel.find({}, 'images');
+    const allHotels = admins.flatMap(admin => admin.images);
+    res.status(200).json(allHotels);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
 
 
 

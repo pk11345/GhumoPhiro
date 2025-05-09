@@ -21,11 +21,11 @@ const HomeContent = () => {
   return (
     <div className="text-amber-600 ">
       {/* Hero Section */}
-      <section className="relative h-[500px]">
+      <section className="relative h-[500px] ">
         <img
           src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Hotel Hero"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute rounded-r-[40%] h-full object-cover w-[50%] shadow-2xl shadow-white/60"
         />
         <div className="absolute inset-0  bg-opacity-50 flex items-center justify-center">
           <div className="text-center text-purple-700 bg-white/70 p-8 rounded-3xl">
@@ -36,9 +36,10 @@ const HomeContent = () => {
       </section>
 
       {/* About Section */}
-      <section className="py-16 px-4 md:px-20 ">
+      <section className="py-16 px-4 md:px-20  ">
         <h2 className="text-3xl font-bold text-center mb-6">About Us</h2>
-        <p className="max-w-3xl mx-auto text-center text-lg font-semibold text-purple-600 bg-white/80 p-3 rounded-2xl">
+        <p className="max-w-3xl mx-auto text-center text-lg font-semibold text-purple-600
+         bg-white/80 p-3 rounded-2xl ">
           At GhumoPhiro, we make hotel booking seamless and stress-free. Whether you’re planning a
           vacation or a business trip, our platform offers curated stays across top-rated hotels and
           unique locations. With 24/7 support and user-friendly features, we’re here to make every journey

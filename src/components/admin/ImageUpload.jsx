@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { ImgFetch } from '../../redux/action';
 
 const ImageUpload = () => {
   const [file, setFile] = useState(null);
@@ -7,6 +9,8 @@ const ImageUpload = () => {
   const [cloudinaryUrl, setCloudinaryUrl] = useState(null);
   const [hotelName, setHotelName] = useState('');
   const [hotelDesc, setHotelDesc] = useState('');
+
+  const dispatch=useDispatch()
 
   const handleImg = async (e) => {
     const selectedFile = e.target.files[0];
@@ -50,7 +54,9 @@ const ImageUpload = () => {
         { withCredentials: true }
       );
       alert("Uploaded successfully");
-      // Optionally reset fields
+     
+      dispatch(ImgFetch())
+
       setHotelName('');
       setHotelDesc('');
       setCloudinaryUrl(null);

@@ -23,10 +23,10 @@ const App = () => {
   }, []);
   return (
    <>
-   <div className='app  min-h-screen bg-cover bg-center bg-no-repeat text-white'
-   style={{
-    backgroundImage: "url('/texture.jpg')",
-  }}
+   <div className='app  min-h-screen bg-black/70 bg-cover bg-center bg-no-repeat text-white'
+  //  style={{
+  //   backgroundImage: "url('/texture.jpg')",
+  // }}
    >
    {loading ? <Loader /> : 
    <>
