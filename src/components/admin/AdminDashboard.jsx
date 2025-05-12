@@ -84,8 +84,8 @@ const AdminDashboard = () => {
             {
               !admin? 
               <>
-                <div className='flex flex-col items-center  pt-6'>
-            <h1 className='text-4xl font-bold italic text-yellow-800'>Want To List Your Property With Us?</h1>
+                <div className='w-full h-[400px] justify-center flex flex-col items-center  pt-6'>
+            <h1 className='text-4xl font-bold italic text-yellow-500'>Want To List Your Property With Us?</h1>
             <h2 className='text-2xl font-semibold text-black'>Register Or Login To Get Partenered With Us</h2>
           </div>
 

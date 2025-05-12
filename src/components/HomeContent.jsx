@@ -21,14 +21,19 @@ const HomeContent = () => {
   return (
     <div className="text-amber-600 ">
       {/* Hero Section */}
-      <section className="relative h-[500px] ">
-        <img
+      <section className="relative h-[500px]">
+        <div className="w-full h-[100%] flex items-center">
+          <img
           src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Hotel Hero"
-          className="absolute rounded-r-[40%] h-full object-cover w-[50%] shadow-2xl shadow-white/60"
+          className="absolute rounded-r-[40%] h-[80%] md:h-full object-cover md:w-[50%] w-[80%]
+           shadow-2xl shadow-white/60 "
         />
-        <div className="absolute inset-0  bg-opacity-50 flex items-center justify-center">
-          <div className="text-center text-purple-700 bg-white/70 p-8 rounded-3xl">
+        </div>
+        
+        <div className="absolute top-0 flex items-center justify-center h-full w-full">
+          <div className="text-center text-purple-700 bg-white/70 p-3 md:p-8
+          rounded-3xl shadow-2xl shadow-white/40">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Find Your Perfect Stay</h1>
             <p className="text-lg md:text-xl font-semibold italic text-red-700">Book luxury hotels, resorts, and stays at the best prices</p>
           </div>
@@ -39,7 +44,7 @@ const HomeContent = () => {
       <section className="py-16 px-4 md:px-20  ">
         <h2 className="text-3xl font-bold text-center mb-6">About Us</h2>
         <p className="max-w-3xl mx-auto text-center text-lg font-semibold text-purple-600
-         bg-white/80 p-3 rounded-2xl ">
+         bg-white/80 p-3 rounded-2xl shadow-2xl shadow-white/40">
           At GhumoPhiro, we make hotel booking seamless and stress-free. Whether you’re planning a
           vacation or a business trip, our platform offers curated stays across top-rated hotels and
           unique locations. With 24/7 support and user-friendly features, we’re here to make every journey
@@ -52,7 +57,7 @@ const HomeContent = () => {
         <h2 className="text-3xl font-bold text-center mb-10">Popular Destinations</h2>
         <div className="grid md:grid-cols-3 gap-6">
           {destinations.map((dest, index) => (
-            <div key={index} className="rounded-lg overflow-hidden shadow-lg  hover:scale-105 transition-all duration-300">
+            <div key={index} className="rounded-lg overflow-hidden shadow-lg  hover:scale-105 transition-all duration-300 shadow-2xl shadow-white/40">
               <img src={dest.image} alt={dest.name} className="w-full h-60 object-cover" />
               <div className="p-4 text-center bg-white">
                 <h3 className="text-xl font-semibold text-amber-500 italic">{dest.name}</h3>
@@ -67,7 +72,7 @@ const HomeContent = () => {
 {/* Testimonials Section - Updated */}
 <section className="py-16 px-4 md:px-20 ">
   <h2 className="text-4xl font-bold text-center mb-12 text-amber-600">What Our Guests Say</h2>
-  <div className="grid md:grid-cols-3 gap-8">
+  <div className="grid md:grid-cols-3 gap-8 ">
     {[
       {
         name: "Aarav Mehta",
@@ -90,7 +95,7 @@ const HomeContent = () => {
     ].map((testimonial, index) => (
       <div
         key={index}
-        className="bg-white p-6 rounded-xl shadow-xl hover:scale-105 transition-all duration-300"
+        className="bg-white p-6 rounded-xl shadow-xl hover:scale-105 transition-all duration-300 shadow-2xl shadow-white/40"
       >
         <div className="flex items-center gap-4 mb-4">
           <img
@@ -120,7 +125,7 @@ const HomeContent = () => {
   </p>
 
   <div className="max-w-3xl mx-auto grid gap-6">
-    <form className="grid gap-4 bg-[#f8fafc] p-6 rounded-xl shadow-lg">
+    <form className="grid gap-4 bg-[#f8fafc] p-6 rounded-xl shadow-2xl shadow-white/40">
       <input
         type="text"
         placeholder="Your Name"
