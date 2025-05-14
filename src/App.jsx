@@ -10,6 +10,7 @@ import UserDashboard from './components/user/UserDashboard'
 import UserLogout from './components/user/UserLogout'
 import AdminDashboard from './components/admin/AdminDashboard'
 import Loader from './components/Loader'
+import AdminProfile from './components/admin/AdminProfile'
 
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
       <Route path='/UserDashboard' element={<UserDashboard/>}/>
       <Route path='/Logout' element={<UserLogout/>}/>
       <Route path='/AdminDashboard' element={<AdminDashboard/>}/>
+       <Route path='/AdminProfile' element={<AdminProfile/>}/>
     </Routes>
    
    </>

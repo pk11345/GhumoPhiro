@@ -5,31 +5,43 @@ import AdminLogout from './AdminLogout'
 import { FaUserCircle } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
 import AdminContent from './AdminContent';
+import { useDispatch, useSelector } from 'react-redux';
+import { isAdmin } from '../../redux/action';
 
 const AdminDashboard = () => {
-    const [admin, setAdmin] = useState("")
+    // const [admin, setAdmin] = useState("")
   
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
+ const adminName = useSelector(state=>state.admin)
+      console.log(adminName)
+     
+ 
+     const dispatch = useDispatch()
   
+  //   useEffect(()=>{
   
-    useEffect(()=>{
-  
-    let info = async ()=>{
-      try{
-      let response = await axios.get("http://localhost:8000/AdminDashboard",{withCredentials:true})
-      console.log(response.data)
-      setAdmin(response.data.name)
-      }
-      catch(err){
-        console.log(err)
-        if (err.response && err.response.status === 401) {
-          // toast.error("You have to login first");
-          // setTimeout(() => navigate("/AdminLogin"), 2000); 
-        } 
-      }
-    }
-    info()
-  },[navigate])
+  //   let info = async ()=>{
+  //     try{
+  //     let response = await axios.get("http://localhost:8000/AdminDashboard",{withCredentials:true})
+  //     console.log(response.data)
+  //     setAdmin(response.data.name)
+  //        dispatch(isAdmin(response.data.name))
+              
+  //     }
+  //     catch(err){
+  //       console.log(err)
+  //       if (err.response && err.response.status === 401) {
+  //         // toast.error("You have to login first");
+  //         // setTimeout(() => navigate("/AdminLogin"), 2000); 
+  //       } 
+  //     }
+  //   }
+  //   info()
+  // },[navigate])
+
+  useEffect(()=>{
+    dispatch(isAdmin())
+  },[dispatch])
     
 
  
@@ -50,7 +62,7 @@ const AdminDashboard = () => {
       className='pt-1 pb-2 pl-2 pr-2 border-2 border-white rounded-2xl text-lg font-semibold hover:bg-white/40'
       ><Link to="/AdminDashboard">Home</Link>
       </button>
-      {!admin?
+      {!adminName?
       <>
       <button
           className='pt-1 pb-2 pl-2 pr-2 border-2 border-white rounded-2xl text-lg font-semibold hover:bg-white/40'
@@ -65,7 +77,9 @@ const AdminDashboard = () => {
       <>
       <h1 className='pt-1 pb-2 pl-2 pr-2 border-2 border-white rounded-2xl text-lg flex items-center gap-2 text-bold 
        font-semibold hover:bg-white/40 text-white'>
-      <FaUserCircle className='text-red-500 text-xl' /> {admin}</h1>
+        
+      <FaUserCircle className='text-red-500 text-xl cursor-pointer' /> 
+      <Link to="/AdminProfile"> {adminName}</Link></h1>
       <AdminLogout/>
       </>
       }
@@ -82,7 +96,7 @@ const AdminDashboard = () => {
 
           <div>
             {
-              !admin? 
+              !adminName? 
               <>
                 <div className='w-full h-[400px] justify-center flex flex-col items-center  pt-6'>
             <h1 className='text-4xl font-bold italic text-yellow-500'>Want To List Your Property With Us?</h1>

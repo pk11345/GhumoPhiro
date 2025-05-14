@@ -5,7 +5,7 @@ import { ImgFetch } from '../../redux/action'
 
 const GetImage = () => {
    
-    const img = useSelector(state=>state)
+    const img = useSelector(state=>state.img)
     console.log(img)
     const dispatch =useDispatch()
 

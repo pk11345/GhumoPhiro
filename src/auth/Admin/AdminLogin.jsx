@@ -1,7 +1,9 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
+import { isAdmin } from '../../redux/action';
 
 
 const AdminLogin = () => {
@@ -9,6 +11,8 @@ const AdminLogin = () => {
     const [password, setPassword] = useState("")
 
     const navigate = useNavigate()
+
+   
 
     const formData ={
         email:email,
@@ -20,6 +24,7 @@ const AdminLogin = () => {
        axios.post("http://localhost:8000/AdminLogin", formData,{withCredentials:true})
        .then((res) => {
            console.log("Response:", res.data);
+           
            if (res.status === 200) {
                toast.success("Login successful!");
                let cookie = document.cookie
