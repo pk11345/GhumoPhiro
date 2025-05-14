@@ -10,7 +10,9 @@ import GetImage from './GetImage';
 const AdminProfile = () => {
   const [editMode, setEditMode] = useState(false);
   const [form, setForm] = useState({ name: '', password: '' });
-  const [editHotel, setEditHotel] = useState(false)
+  const [editHotel, setEditHotel] = useState({images:[{img:"", hotelName:"", hotelDesc:""}] });
+  const [openHotel, setOpenHotel] = useState(false)
+  const [hotelForm, setHotelForm] = useState(false)
 
   const admin = useSelector((state) => state.admin);
   const hotel = useSelector(state=>state.img)
@@ -24,7 +26,8 @@ const AdminProfile = () => {
 
   useEffect(() => {
     if (admin) {
-      setForm({ name: admin.name, password: admin.password });
+    setForm({ name: admin.name, password: admin.password,});
+    setEditHotel({ images:[{img:admin.images.img, hotelName:admin.images.hotelName, hotelDesc:admin.images.hotelDesc}] })
     }
   }, [admin]);
 
@@ -39,7 +42,7 @@ const AdminProfile = () => {
       });
       alert('Admin updated successfully!');
       setEditMode(false)
-      setEditHotel(false)
+      setOpenHotel(false)
       dispatch(isAdmin()); // re-fetch updated admin data
     } catch (err) {
       alert('Update failed')
@@ -79,17 +82,18 @@ const AdminProfile = () => {
               <input
                 type="text"
                 name="name"
-                value={form.name}
+                // value={form.name}
                 onChange={handleChange}
-                placeholder="Enter name"
+                placeholder="Enter new name"
                 className="p-2 rounded"
               />
+
               <input
                 type="password"
                 name="password"
-                value={form.password}
+                // value={form.password}
                 onChange={handleChange}
-                placeholder="Enter password"
+                placeholder="Enter new password"
                 className="p-2 rounded"
               />
               <div className="flex gap-4">
@@ -111,6 +115,10 @@ const AdminProfile = () => {
                 <h1>Password:</h1>
                 <h1>{admin.password}</h1>
               </div>
+               <div className="flex gap-3 text-2xl text-white font-semibold">
+                <h1>Email:</h1>
+                <h1>{admin.email}</h1>
+              </div>
               <button
                 className="bg-red-500 p-3 text-xl font-bold text-white rounded-xl cursor-pointer"
                 onClick={() => setEditMode(true)}
@@ -121,31 +129,90 @@ const AdminProfile = () => {
           )}
         </div>
       </div>
+          
 
-      <div className='w-full mt-5 p-6'>
+          {/* edit hotel  */}
+      <div className='w-full mt-5 p-6 flex justify-between'>
         <button onClick={()=>{
-          setEditHotel(true)
+          setOpenHotel(true)
         }}
          className="bg-red-500 p-3 text-xl font-bold text-white rounded-xl cursor-pointer"
         >Edit Hotels</button>
+        {openHotel? 
+         <button onClick={()=>{
+          setOpenHotel(false)
+        }}
+         className="bg-red-500 p-3 text-xl font-bold text-white rounded-xl cursor-pointer"
+        >Close</button> :<></>}
       </div>
 
-      <div className='w-full flex justify-center pb-4'>
-        {editHotel? <>
+
+      <div className='w-full flex flex-col items-center gap-3 '>
+        {openHotel? <>
         {hotel.map((hotel, index) => (
-          <div className=' flex gap-4 items-center bg-gray-600 pl-10 pr-10 pt-4 pb-4'
+          <div className=' flex gap-4 items-center justify-between bg-gray-600 pl-4 pr-4 pt-4 pb-4 w-[70%]'
            key={index}>
             <img className='h-20'
              src={hotel.img} alt="" />
             <h1>Name: {hotel.hotelName}</h1>
              <p>Description: {hotel.hotelDesc}</p>
-             <button className="bg-red-500 p-2 w-[80px] text-xl font-bold text-white rounded-xl cursor-pointer"
+             
+             <button onClick={()=>{
+              setHotelForm(true)
+             }}
+             className="bg-red-500 p-2 w-[80px] text-xl font-bold text-white rounded-xl cursor-pointer "
              >Edit</button>
           </div>
            ))}
         </>
         :<>
         </>}
+
+          {/* hotel edit form */}
+        { hotelForm?
+        <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-xl mt-10 absolute">
+          <div className='flex w-full justify-between items-center'>
+      <h2 className="text-2xl font-bold mb-4 text-center text-gray-700">Upload Hotel Image</h2>
+      <button onClick={()=>{
+        setHotelForm(false)
+      }}
+      className='bg-red-500 text-white w-[30px] rounded-[50%] cursor-pointer'>
+        X</button> </div>
+      <form  className="space-y-4">
+        <input
+          type="file"
+          // onChange={handleImg}
+          className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4
+                     file:rounded-full file:border-0
+                     file:text-sm file:font-semibold
+                     file:bg-blue-50 file:text-blue-700
+                     hover:file:bg-blue-100"
+        />
+
+        <input
+          type="text"
+          placeholder="Hotel Name"
+          
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2
+           focus:ring-blue-400 placeholder:text-black text-black"
+        />
+
+        <input
+          type="text"
+          placeholder="Hotel Description"
+          
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2
+           focus:ring-blue-400 placeholder:text-black text-black"
+        />
+
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer"
+        >
+          Submit
+        </button>
+      </form>
+    </div>  : <></> }
       </div>
     </>
   );
