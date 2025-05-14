@@ -229,9 +229,41 @@ app.post("/upload-image", AdminIsLoggedIn, async (req, res) => {
   }
 });
 
-// app.get("/upload-image",AdminIsLoggedIn, async (req,res)=>{
-//   const {imageUrl,hotelName,hotelDesc} = req.body
-// })
+//admin update
+
+app.put("/AdminUpdate", AdminIsLoggedIn, async (req, res) => {
+  const { name, password } = req.body;
+
+  try {
+    
+    const updateFields = { name };
+
+   
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      updateFields.password = hashedPassword;
+    }
+
+    const updatedAdmin = await adminmodel.findOneAndUpdate(
+      { email: req.admin.email },
+      updateFields,
+      { new: true }
+    );
+
+    if (!updatedAdmin) {
+      return res.status(404).send("Admin not found");
+    }
+
+    res.status(200).json({ message: "Admin updated", admin: updatedAdmin });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+});
+
+
+
 
 app.get("/getHotels", async (req, res) => {
   try {

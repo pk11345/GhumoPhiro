@@ -44,7 +44,7 @@ export const ImgFetch = () => {
         console.log(response.data.name)
         dispatch({
           type: AdminLogin,
-          payload: response.data.name,
+          payload: response.data,
         });
       } catch (error) {
         console.error("Error fetching name:", error);

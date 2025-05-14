@@ -12,7 +12,7 @@ const AdminDashboard = () => {
     // const [admin, setAdmin] = useState("")
   
     // const navigate = useNavigate()
- const adminName = useSelector(state=>state.admin)
+ const adminName = useSelector(state=>state.admin.name)
       console.log(adminName)
      
  
