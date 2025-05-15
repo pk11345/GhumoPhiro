@@ -1,23 +1,34 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { isFetchingHotels } from "../../redux/action";
 
 const HotelCard = () => {
-  const [hotels, setHotels] = useState([]);
+  // const [hotels, setHotels] = useState([]);
 
-  useEffect(() => {
-    const fetchHotels = async () => {
-      try {
-        const res = await axios.get("http://localhost:8000/getHotels", {
-          withCredentials: true,
-        });
-        setHotels(res.data);
-      } catch (err) {
-        console.error("Error fetching hotels:", err);
-      }
-    };
+  const hotels = useSelector(state=>state.hotels)
+  // console.log(hotels,"ishotels")
 
-    fetchHotels();
-  }, []);
+  const dispatch = useDispatch()
+
+  // useEffect(() => {
+  //   const fetchHotels = async () => {
+  //     try {
+  //       const res = await axios.get("http://localhost:8000/getHotels", {
+  //         withCredentials: true,
+  //       });
+  //       setHotels(res.data);
+  //     } catch (err) {
+  //       console.error("Error fetching hotels:", err);
+  //     }
+  //   };
+
+  //   fetchHotels();
+  // }, []);
+
+  useEffect(()=>{
+    dispatch(isFetchingHotels())
+  },[dispatch])
 
   return (
     <div className="flex flex-wrap justify-center gap-6 p-6 ">
@@ -36,6 +47,9 @@ const HotelCard = () => {
           </h2>
           <p className="text-gray-700 text-sm text-center mb-3">
             {hotel.hotelDesc}
+          </p>
+          <p className="text-gray-700 text-sm text-center mb-3">
+            {hotel.hotelLocation}
           </p>
           <button className="mt-auto bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-200">
             Book Now

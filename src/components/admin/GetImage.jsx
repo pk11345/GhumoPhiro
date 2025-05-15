@@ -34,7 +34,7 @@ const GetImage = () => {
         <img src={hotel.img} alt={hotel.hotelName} className="w-full h-48 object-cover rounded-lg mb-4" />
         <h3 className="text-lg font-semibold text-gray-700">{hotel.hotelName}</h3>
         <p className="text-gray-600">{hotel.hotelDesc}</p>
-        
+         <p className="text-gray-600">{hotel.hotelLocation}</p>
       </div>
     ))}
   </div></div>

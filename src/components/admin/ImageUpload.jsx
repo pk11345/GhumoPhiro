@@ -9,6 +9,7 @@ const ImageUpload = () => {
   const [cloudinaryUrl, setCloudinaryUrl] = useState(null);
   const [hotelName, setHotelName] = useState('');
   const [hotelDesc, setHotelDesc] = useState('');
+  const [hotelLocation, setHotelLocation] = useState('');
 
   const dispatch=useDispatch()
 
@@ -49,7 +50,8 @@ const ImageUpload = () => {
         {
           imageUrl: cloudinaryUrl,
           hotelName,
-          hotelDesc
+          hotelDesc,
+          hotelLocation
         },
         { withCredentials: true }
       );
@@ -59,7 +61,8 @@ const ImageUpload = () => {
 
       setHotelName('');
       setHotelDesc('');
-      setCloudinaryUrl(null);
+      setHotelLocation("")
+            setCloudinaryUrl(null);
       setPreview(null);
     } catch (err) {
       console.error("Failed to save to server:", err);
@@ -97,6 +100,16 @@ const ImageUpload = () => {
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2
            focus:ring-blue-400 placeholder:text-black text-black"
         />
+
+        <input
+          type="text"
+          placeholder="Hotel Location"
+          value={hotelLocation}
+          onChange={(e) => setHotelLocation(e.target.value)}
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2
+           focus:ring-blue-400 placeholder:text-black text-black"
+        />
+
 
         <button
           type="submit"

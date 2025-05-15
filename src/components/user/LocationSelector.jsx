@@ -4,6 +4,8 @@ const LocationSelector = () => {
   const [location, setLocation] = useState('');
   const cities = ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Kolkata'];
 
+  
+
   return (
     <div className="flex flex-col">
       <label className="mb-1 font-medium">Select Location</label>

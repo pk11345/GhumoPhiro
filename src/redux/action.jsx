@@ -4,6 +4,8 @@ export const FetchImg = "FetchImg"
 
 export const AdminLogin = "AdminLogin"
 
+export const FetchHotels = "FetchHotels"
+
 
 export const ImgFetch = () => {
     return async (dispatch) => {
@@ -29,10 +31,6 @@ export const ImgFetch = () => {
   };
 
 
-  // export const isAdmin =  (id)=>({
-  //   type:AdminLogin,
-  //   payload:id
-  // })
 
   export const isAdmin = ()=>{
     return async (dispatch) => {
@@ -55,4 +53,26 @@ export const ImgFetch = () => {
         });
       }
     };
+  }
+
+
+  export const isFetchingHotels = ()=>{
+    return  async(dipatch)=>{
+      try{
+        const res = await axios.get("http://localhost:8000/getHotels", {
+          withCredentials: true,
+        });
+        dipatch({
+          type:FetchHotels,
+          payload:res.data
+        })
+      } catch(err){
+         console.error("Error fetching name:", err);
+  
+        dispatch({
+          type: FetchHotels,
+          payload: "", 
+        });
+      }
+    }
   }

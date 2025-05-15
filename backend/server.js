@@ -35,7 +35,8 @@ const adminSchema = new mongoose.Schema({
     images: [{
       img:String,
       hotelName :String,
-      hotelDesc : String
+      hotelDesc : String,
+      hotelLocation:String
     }]
 })
 
@@ -202,7 +203,7 @@ app.post("/AdminLogin", async (req,res)=>{
 })
 
 app.post("/upload-image", AdminIsLoggedIn, async (req, res) => {
-  const { imageUrl, hotelName, hotelDesc } = req.body;
+  const { imageUrl, hotelName, hotelDesc,hotelLocation } = req.body;
 
   if (!imageUrl || !hotelName || !hotelDesc) {
     return res.status(400).send("All fields are required");
@@ -217,7 +218,8 @@ app.post("/upload-image", AdminIsLoggedIn, async (req, res) => {
     admin.images.push({
       img: imageUrl,
       hotelName,
-      hotelDesc
+      hotelDesc,
+      hotelLocation
     });
 
     await admin.save();
@@ -262,6 +264,37 @@ app.put("/AdminUpdate", AdminIsLoggedIn, async (req, res) => {
   }
 });
 
+//hotel update
+
+app.put("/updateHotel/:id", AdminIsLoggedIn, async (req,res)=>{
+  const{hotelName,hotelDesc,hotelLocation}=req.body
+ const imageId = req.params.id;
+
+try {
+    const admin = await adminmodel.findOne({ email: req.admin.email });
+    if (!admin) {
+      return res.status(404).send("Admin not found");
+    }
+
+    const imageToUpdate = admin.images.id(imageId); // Mongoose subdocument access
+    if (!imageToUpdate) {
+      return res.status(404).send("Hotel image not found");
+    }
+
+    // Update fields
+    if (hotelName) imageToUpdate.hotelName = hotelName;
+    if (hotelDesc) imageToUpdate.hotelDesc = hotelDesc;
+    if (hotelLocation) imageToUpdate.hotelLocation = hotelLocation;
+    // if (img) imageToUpdate.img = img;
+
+    await admin.save();
+
+    res.status(200).json({ message: "Hotel updated successfully", updatedImage: imageToUpdate });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+})
 
 
 

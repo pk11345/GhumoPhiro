@@ -5,19 +5,30 @@ import { Link } from 'react-router-dom';
 import AdminLogout from './AdminLogout';
 import axios from 'axios';
 import { ImgFetch, isAdmin } from '../../redux/action';
-import GetImage from './GetImage';
+
 
 const AdminProfile = () => {
   const [editMode, setEditMode] = useState(false);
   const [form, setForm] = useState({ name: '', password: '' });
-  const [editHotel, setEditHotel] = useState({images:[{img:"", hotelName:"", hotelDesc:""}] });
+  // const [editHotel, setEditHotel] = useState({images:[{}] });
+  const [selectedHotel, setselectedHotel] = useState(null)
+  const [img, setImg] = useState(null)
+  const [hotelName, sethotelName] = useState("")
+  const [hotelDesc, sethotelDesc] = useState("")
   const [openHotel, setOpenHotel] = useState(false)
   const [hotelForm, setHotelForm] = useState(false)
+  const [hotelLocation, setHotelLocation] = useState('');
+  
 
   const admin = useSelector((state) => state.admin);
   const hotel = useSelector(state=>state.img)
-  
   const dispatch = useDispatch();
+
+  // setEditHotel({images:[{
+  //   img:img,
+  //   hotelName:hotelName,
+  //   hotelDesc:hotelDesc
+  // }]})
 
   useEffect(() => {
     dispatch(isAdmin());
@@ -27,7 +38,7 @@ const AdminProfile = () => {
   useEffect(() => {
     if (admin) {
     setForm({ name: admin.name, password: admin.password,});
-    setEditHotel({ images:[{img:admin.images.img, hotelName:admin.images.hotelName, hotelDesc:admin.images.hotelDesc}] })
+    // setEditHotel({ images:[{img:admin.images.img, hotelName:admin.images.hotelName, hotelDesc:admin.images.hotelDesc}] })
     }
   }, [admin]);
 
@@ -42,13 +53,33 @@ const AdminProfile = () => {
       });
       alert('Admin updated successfully!');
       setEditMode(false)
-      setOpenHotel(false)
+      
       dispatch(isAdmin()); // re-fetch updated admin data
     } catch (err) {
       alert('Update failed')
       console.error(err)
     }
   };
+
+  const handleHotelUpdate = async ()=>{
+    try{
+      const res = await axios.put(`http://localhost:8000/updateHotel/${selectedHotel}`, {
+    hotelName,
+    hotelDesc,
+    hotelLocation
+  },
+        {withCredentials:true})
+
+        alert("Hotel updated")
+        setOpenHotel(false)
+    }
+    catch(err){
+      alert("update hotel failed")
+      console.log(err)
+    }
+  }
+console.log(selectedHotel)
+
 
   return (
     <>
@@ -156,9 +187,12 @@ const AdminProfile = () => {
              src={hotel.img} alt="" />
             <h1>Name: {hotel.hotelName}</h1>
              <p>Description: {hotel.hotelDesc}</p>
-             
+             <p>Location: {hotel.hotelLocation}</p>
+
              <button onClick={()=>{
               setHotelForm(true)
+              setselectedHotel(hotel._id)
+              
              }}
              className="bg-red-500 p-2 w-[80px] text-xl font-bold text-white rounded-xl cursor-pointer "
              >Edit</button>
@@ -170,7 +204,7 @@ const AdminProfile = () => {
 
           {/* hotel edit form */}
         { hotelForm?
-        <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-xl mt-10 absolute">
+        <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-xl mt-10 absolute top-50">
           <div className='flex w-full justify-between items-center'>
       <h2 className="text-2xl font-bold mb-4 text-center text-gray-700">Upload Hotel Image</h2>
       <button onClick={()=>{
@@ -192,7 +226,10 @@ const AdminProfile = () => {
         <input
           type="text"
           placeholder="Hotel Name"
-          
+          onChange={(e)=>{
+            sethotelName(e.target.value)
+          }}
+          value={hotelName}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2
            focus:ring-blue-400 placeholder:text-black text-black"
         />
@@ -200,12 +237,24 @@ const AdminProfile = () => {
         <input
           type="text"
           placeholder="Hotel Description"
-          
+          onChange={(e)=>{
+            sethotelDesc(e.target.value)
+          }}
+          value={hotelDesc}
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2
+           focus:ring-blue-400 placeholder:text-black text-black"
+        />
+         <input
+          type="text"
+          placeholder="Hotel Location"
+          value={hotelLocation}
+          onChange={(e) => setHotelLocation(e.target.value)}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2
            focus:ring-blue-400 placeholder:text-black text-black"
         />
 
-        <button
+
+        <button onClick={handleHotelUpdate}
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer"
         >
