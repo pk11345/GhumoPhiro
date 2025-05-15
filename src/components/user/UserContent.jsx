@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import LocationSelector from './LocationSelector';
-import GuestsSelector from './GuestsSelector';
-import SearchButton from './SearchButton';
+
 import HotelCard from './HotelCard';
 
 const UserContent = () => {
@@ -54,8 +53,7 @@ const UserContent = () => {
       </div>
 
       <LocationSelector/>
-      <GuestsSelector/>
-      <SearchButton/>
+   
       </div>
       <div className="flex flex-wrap justify-center gap-6 mt-6">
   <HotelCard />
