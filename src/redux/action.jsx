@@ -6,6 +6,8 @@ export const AdminLogin = "AdminLogin"
 
 export const FetchHotels = "FetchHotels"
 
+export const BookHotelInfo = "BookHotelInfo"
+
 
 export const ImgFetch = () => {
     return async (dispatch) => {
@@ -57,12 +59,12 @@ export const ImgFetch = () => {
 
 
   export const isFetchingHotels = ()=>{
-    return  async(dipatch)=>{
+    return  async(dispatch)=>{
       try{
         const res = await axios.get("http://localhost:8000/getHotels", {
           withCredentials: true,
         });
-        dipatch({
+        dispatch({
           type:FetchHotels,
           payload:res.data
         })
@@ -76,3 +78,13 @@ export const ImgFetch = () => {
       }
     }
   }
+
+ export const UserHotelInfo = (StartDate,EndDate, Location, Guests) => ({
+  type: BookHotelInfo,
+  payload: {
+    StartDate,
+    EndDate,
+    Location,
+    Guests
+  }
+});
