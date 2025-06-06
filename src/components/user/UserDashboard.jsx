@@ -9,6 +9,7 @@ import UserContent from './UserContent';
 
 const UserDashboard = () => {
   const [user, setUser] = useState("")
+  const [role, setRole] = useState("")
   const navigate = useNavigate()
 
 
@@ -18,7 +19,10 @@ const UserDashboard = () => {
     try{
     let response = await axios.get("http://localhost:8000/UserDashboard",{withCredentials:true})
     console.log(response.data)
+    
     setUser(response.data.name)
+    setRole(response.data.role)
+    // console.log(role)
     }
     catch(err){
       console.log(err)
@@ -73,7 +77,14 @@ const UserDashboard = () => {
           </div>
           </div>
 
-          <UserContent/>
+          {role!=="user"? 
+          <>
+          <p>You are not authorized</p>
+          </>
+          : <>
+           <UserContent/>
+          </>}
+         
    
     </>
   )

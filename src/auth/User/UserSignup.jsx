@@ -8,11 +8,13 @@ const UserSignup = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [name, setName] = useState("")
+    const role = "user"
 
     const formData ={
         name:name,
         email:email,
-        password:password
+        password:password,
+        role
     }
 
     const handleSubmit = (e) => {

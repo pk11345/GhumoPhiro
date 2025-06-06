@@ -48,10 +48,12 @@ const HotelCard = () => {
           <p className="text-gray-700 text-sm text-center mb-3">
             {hotel.hotelDesc}
           </p>
+          <h1>{hotel._id} hello</h1>
           <p className="text-gray-700 text-sm text-center mb-3">
             {hotel.hotelLocation}
           </p>
-          <button className="mt-auto bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-200">
+          <button className="mt-auto bg-blue-600 hover:bg-blue-700 cursor-pointer
+           text-white font-medium py-2 px-4 rounded-md transition duration-200">
             Book Now
           </button>
         </div>

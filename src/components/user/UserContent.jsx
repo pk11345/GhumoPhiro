@@ -22,6 +22,8 @@ const UserContent = () => {
       </div>
       <div className="flex flex-wrap justify-center gap-6 mt-6">
       <HotelCard />
+
+      
        </div>
 
    </>

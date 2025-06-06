@@ -8,13 +8,15 @@ const AdminSignup = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [name, setName] = useState("")
+    const role = "admin"
 
     const navigate = useNavigate()
 
     const formData ={
         name:name,
         email:email,
-        password:password
+        password:password,
+        role
     }
 
     const handleSubmit = (e) => {
