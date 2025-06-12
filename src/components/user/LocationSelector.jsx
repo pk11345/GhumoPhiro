@@ -16,9 +16,11 @@ const LocationSelector = () => {
   
 
   const hotel = useSelector(state=>state.hotels)
-  const Location = hotel.map((t)=>{
-    return t.hotelLocation
-  })
+  // const Location = hotel.map((t)=>{
+  //   return t.hotelLocation
+  // })
+  const Location = [...new Set(hotel.map(t => t.hotelLocation))];
+
  console.log(location,"selected Location")
 
    const handleClick = () => {
@@ -78,8 +80,9 @@ const LocationSelector = () => {
       >
         <option value="">-- Choose a city --</option>
         {Location.map((city) => (
-          <option key={city} value={city}>{city}</option>
-        ))}
+         <option key={city} value={city}>{city}</option>
+          ))}
+
       </select>
 
 

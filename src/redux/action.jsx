@@ -6,8 +6,11 @@ export const AdminLogin = "AdminLogin"
 
 export const FetchHotels = "FetchHotels"
 
+export const UserLogin = "UserLogin"
+
 export const BookHotelInfo = "BookHotelInfo"
 
+export const hotelId = "hotelId"
 
 export const ImgFetch = () => {
     return async (dispatch) => {
@@ -58,6 +61,7 @@ export const ImgFetch = () => {
   }
 
 
+
   export const isFetchingHotels = ()=>{
     return  async(dispatch)=>{
       try{
@@ -79,6 +83,29 @@ export const ImgFetch = () => {
     }
   }
 
+  export const isUser = ()=>{
+    return async (dispatch) => {
+      try {
+        const response = await axios.get("http://localhost:8000/UserDashboard", {
+          withCredentials: true,
+        });
+        
+        console.log(response.data.name)
+        dispatch({
+          type: UserLogin,
+          payload: response.data,
+        });
+      } catch (error) {
+        console.error("Error fetching name:", error);
+  
+        dispatch({
+          type: UserLogin,
+          payload: "", 
+        });
+      }
+    };
+  }
+
  export const UserHotelInfo = (StartDate,EndDate, Location, Guests) => ({
   type: BookHotelInfo,
   payload: {
@@ -88,3 +115,8 @@ export const ImgFetch = () => {
     Guests
   }
 });
+
+export const HotelId = (id)=>({
+  type:hotelId,
+  payload:id
+})

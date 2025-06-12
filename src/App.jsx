@@ -11,6 +11,7 @@ import UserLogout from './components/user/UserLogout'
 import AdminDashboard from './components/admin/AdminDashboard'
 import Loader from './components/Loader'
 import AdminProfile from './components/admin/AdminProfile'
+import Bookings from './components/user/Bookings'
 
 
 const App = () => {
@@ -42,6 +43,8 @@ const App = () => {
       <Route path='/Logout' element={<UserLogout/>}/>
       <Route path='/AdminDashboard' element={<AdminDashboard/>}/>
        <Route path='/AdminProfile' element={<AdminProfile/>}/>
+       <Route path='/bookings' element={<Bookings/>}/>
+
     </Routes>
    
    </>
