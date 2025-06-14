@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { bookedHotel } from '../../redux/action';
 
 const Bookings = () => {
   const hotelId = useSelector(state => state.hotelID);
@@ -12,6 +13,7 @@ const Bookings = () => {
   const userHotelInfo = useSelector(state => state.userHotelInfo);
   const user = useSelector(state => state.user.name);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const [isAllowed, setIsAllowed] = useState(!!user);
 
@@ -36,7 +38,9 @@ const Bookings = () => {
       checkIn,
       checkOut
     };
-    console.log("Booking Info Submitted:", bookingData);
+    // console.log("Booking Info Submitted:", bookingData);
+    dispatch(bookedHotel(bookingData))
+    console.log(dispatch(bookedHotel(bookingData)))
     // axios.post("/api/bookHotel", bookingData)
   };
 
@@ -51,6 +55,11 @@ const Bookings = () => {
     return () => clearTimeout(timer);
   }
 }, [user, navigate]);
+
+// const HotelBooked =()=>{
+//     dispatch(bookedHotel(fullName,email,phone,guests,checkIn,checkOut))
+//     console.log(dispatch(bookedHotel(fullName,email,phone,guests,checkIn,checkOut)))
+// }
 
 
   return (
@@ -148,7 +157,7 @@ const Bookings = () => {
                   </div>
                 </div>
 
-                <button
+                <button 
                   type="submit"
                   className="w-full bg-blue-300 text-gray-900 font-semibold py-2 rounded-lg
                hover:bg-blue-400 transition cursor-pointer"

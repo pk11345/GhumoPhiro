@@ -12,6 +12,8 @@ export const BookHotelInfo = "BookHotelInfo"
 
 export const hotelId = "hotelId"
 
+export const BookedHotel = "BookedHotel" 
+
 export const ImgFetch = () => {
     return async (dispatch) => {
       try {
@@ -119,4 +121,10 @@ export const ImgFetch = () => {
 export const HotelId = (id)=>({
   type:hotelId,
   payload:id
+})
+
+
+export const bookedHotel = (bookingInfo)=>({
+  type:BookedHotel,
+  payload:bookingInfo
 })

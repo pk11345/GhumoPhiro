@@ -1,4 +1,4 @@
-import { AdminLogin, BookHotelInfo, FetchHotels, FetchImg, hotelId, UserLogin } from "./action";
+import { AdminLogin, BookedHotel, BookHotelInfo, FetchHotels, FetchImg, hotelId, UserLogin } from "./action";
 
 const initialState = {
     img:[],
@@ -6,7 +6,8 @@ const initialState = {
     user:"",
     hotels:[],
     userHotelInfo:[],
-    hotelID :""
+    hotelID :"",
+    Bookedhotel:[]
 }
 
 
@@ -52,6 +53,13 @@ export const reducer = (state=initialState,action)=>{
                     return  {
                         ...state,
                         hotelID:action.payload
+                    }
+                    break;
+
+                    case BookedHotel:
+                    return  {
+                        ...state,
+                        Bookedhotel:action.payload
                     }
                     break;
                
