@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
 const AdminIsLoggedIn = require('../middleware/authAdmin');
+const Booking = require('../models/Booking');
 
 // Admin Signup
 router.post('/AdminSignup', async (req, res) => {
@@ -154,5 +155,16 @@ router.get('/getHotels', async (req, res) => {
     const allHotels = admins.flatMap(admin => admin.images);
     res.status(200).json(allHotels);
 });
+
+//hotel bookings
+router.get('/allBookings',AdminIsLoggedIn, async (req, res) => {
+  try {
+    const bookings = await Booking.find();
+    res.status(200).json(bookings);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching bookings' });
+  }
+});
+
 
 module.exports = router;

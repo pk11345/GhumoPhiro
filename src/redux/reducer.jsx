@@ -59,7 +59,7 @@ export const reducer = (state=initialState,action)=>{
                     case BookedHotel:
                     return  {
                         ...state,
-                        Bookedhotel:action.payload
+                       Bookedhotel: [...state.Bookedhotel, action.payload],
                     }
                     break;
                

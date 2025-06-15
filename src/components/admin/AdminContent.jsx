@@ -1,6 +1,7 @@
 import React from 'react'
 import ImageUpload from './ImageUpload'
 import GetImage from './GetImage'
+import BookingList from './BookingList'
 
 const AdminContent = () => {
   return (
@@ -12,6 +13,9 @@ const AdminContent = () => {
     <div>
       <GetImage/>
     </div>
+    <div className="mt-6">
+        <BookingList /> 
+      </div>
     </>
   )
 }

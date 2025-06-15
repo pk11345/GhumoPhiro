@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const isLoggedIn = require('../middleware/authUser');
+const Booking = require('../models/Booking');
 
 // User Signup
 router.post('/UserSignup', async (req, res) => {
@@ -73,5 +74,32 @@ router.get('/UserLogout', (req, res) => {
     });
     res.status(200).send({ message: 'Logged out successfully' });
 });
+
+
+router.post("/bookHotel", async (req, res) => {
+  try {
+    const newBooking = new Booking(req.body);
+    await newBooking.save();
+    res.status(200).json(newBooking);
+  } catch (error) {
+    console.error("Booking Error:", error);
+    res.status(500).json({ error: "Failed to save booking" });
+  }
+});
+
+// Get My Bookings for Logged-in User
+router.get('/myBookings', isLoggedIn, async (req, res) => {
+  try {
+    const userEmail = req.user.email;
+
+    const bookings = await Booking.find({ email: userEmail }).sort({ createdAt: -1 });
+
+    res.status(200).json(bookings);
+  } catch (error) {
+    console.error("Error fetching user bookings:", error);
+    res.status(500).json({ error: "Failed to fetch bookings" });
+  }
+});
+
 
 module.exports = router;

@@ -5,20 +5,24 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { bookedHotel } from '../../redux/action';
+import { bookedHotel, isUser } from '../../redux/action';
+import axios from 'axios';
+import UserBookings from './UserBookings';
 
 const Bookings = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const hotelId = useSelector(state => state.hotelID);
   const hotels = useSelector(state => state.hotels);
   const userHotelInfo = useSelector(state => state.userHotelInfo);
   const user = useSelector(state => state.user.name);
-  const navigate = useNavigate();
-  const dispatch = useDispatch()
-
-  const [isAllowed, setIsAllowed] = useState(!!user);
 
   const selectedHotel = hotels.find(hotel => hotel._id === hotelId);
   const { checkInDate, checkOutDate, guests } = userHotelInfo[0] || {};
+
+  const [isAllowed, setIsAllowed] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -27,10 +31,37 @@ const Bookings = () => {
   const [checkIn, setCheckIn] = useState(checkInDate ? new Date(checkInDate) : new Date());
   const [checkOut, setCheckOut] = useState(checkOutDate ? new Date(checkOutDate) : null);
 
-  const handleBooking = (e) => {
+  // Fetch user info on refresh
+  useEffect(() => {
+    const fetchUser = async () => {
+      await dispatch(isUser());
+      setIsLoading(false);
+    };
+    fetchUser();
+  }, [dispatch]);
+
+  // Handle login check
+  useEffect(() => {
+    if (!isLoading && !user) {
+      toast.error("⚠️ Login first to access bookings");
+      navigate("/UserLogin");
+    } else if (user) {
+      setIsAllowed(true);
+    }
+  }, [isLoading, user, navigate]);
+
+  const handleBooking = async (e) => {
     e.preventDefault();
+
+    if (!selectedHotel) {
+      toast.error("No hotel selected for booking");
+      return;
+    }
+
     const bookingData = {
       hotelId,
+      hotelName: selectedHotel.hotelName,
+      hotelLocation: selectedHotel.hotelLocation,
       fullName,
       email,
       phone,
@@ -38,34 +69,29 @@ const Bookings = () => {
       checkIn,
       checkOut
     };
-    // console.log("Booking Info Submitted:", bookingData);
-    dispatch(bookedHotel(bookingData))
-    console.log(dispatch(bookedHotel(bookingData)))
-    // axios.post("/api/bookHotel", bookingData)
+
+    try {
+      const response = await axios.post('http://localhost:8000/bookHotel', bookingData, {
+        withCredentials: true,
+      });
+
+      if (response.status === 200) {
+        toast.success("✅ Booking Confirmed!");
+        dispatch(bookedHotel(response.data));
+      } else {
+        toast.error("❌ Booking Failed");
+      }
+    } catch (err) {
+      toast.error("❌ Error: " + err.message);
+    }
   };
-
- useEffect(() => {
-  if (!user) {
-    setIsAllowed(false);
-    const timer = setTimeout(() => {
-      alert("⚠️ Login required to access bookings"); // Native alert
-      toast.error("⚠️ Login first to access bookings"); // Toast notification
-      navigate("/UserLogin");
-    }, 1000); 
-    return () => clearTimeout(timer);
-  }
-}, [user, navigate]);
-
-// const HotelBooked =()=>{
-//     dispatch(bookedHotel(fullName,email,phone,guests,checkIn,checkOut))
-//     console.log(dispatch(bookedHotel(fullName,email,phone,guests,checkIn,checkOut)))
-// }
-
 
   return (
     <>
       <ToastContainer />
-      {isAllowed && (
+      {isLoading ? (
+        <div className="text-center text-white p-10 text-xl font-semibold">Loading user data...</div>
+      ) : isAllowed ? (
         <div className="p-6 max-w-3xl mx-auto text-gray-800 flex flex-col gap-3">
           <div className='flex justify-between'>
             <h1 className='text-white text-2xl font-bold'>My Bookings</h1>
@@ -73,6 +99,7 @@ const Bookings = () => {
               <Link to="/UserDashboard">Home</Link>
             </button>
           </div>
+
           {selectedHotel ? (
             <>
               {/* Hotel Info */}
@@ -157,20 +184,26 @@ const Bookings = () => {
                   </div>
                 </div>
 
-                <button 
+                <button
                   type="submit"
                   className="w-full bg-blue-300 text-gray-900 font-semibold py-2 rounded-lg
-               hover:bg-blue-400 transition cursor-pointer"
+                  hover:bg-blue-400 transition cursor-pointer"
                 >
                   Confirm Booking
                 </button>
               </form>
             </>
           ) : (
-            <p className="text-center text-red-400">No hotel selected. Please go back and select one.</p>
+            <p className="text-center text-red-400 mt-4">No hotel selected. Please go back and select one.</p>
           )}
+
+          {/* Booking History Section */}
+          <div className="mt-10">
+            <h2 className="text-xl font-bold text-white mb-4">📘 Your Previous Bookings</h2>
+            <UserBookings />
+          </div>
         </div>
-      )}
+      ) : null}
     </>
   );
 };
