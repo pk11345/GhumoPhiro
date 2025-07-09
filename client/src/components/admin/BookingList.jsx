@@ -53,7 +53,7 @@ const BookingList = () => {
 
     fetchBookings();
     // dispatch(isAdmin())
-  }, []);
+  }, [adminId]);
 
  
 
