@@ -5,6 +5,9 @@ const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
 const AdminIsLoggedIn = require('../middleware/authAdmin');
 const Booking = require('../models/Booking');
+const hotelModel = require('../models/Hotel');
+
+
 
 // Admin Signup
 router.post('/AdminSignup', async (req, res) => {
@@ -50,7 +53,8 @@ router.post('/AdminLogin', async (req, res) => {
         const token = jwt.sign({ email, role: 'admin' }, 'shhhh');
         res.cookie('Admintoken', token, {
             httpOnly: true,
-            sameSite: 'strict',
+            sameSite: 'none',
+            secure:true,
             maxAge: 7 * 24 * 60 * 60 * 1000
         });
         return res.status(200).json({ message: 'Logged in', token });
@@ -60,10 +64,26 @@ router.post('/AdminLogin', async (req, res) => {
 });
 
 // Admin Dashboard
+// router.get('/AdminDashboard', AdminIsLoggedIn, async (req, res) => {
+//     const admin = await Admin.findOne({ email: req.admin.email });
+//     res.send(admin);
+// });
+// Admin Dashboard with Hotel Details
 router.get('/AdminDashboard', AdminIsLoggedIn, async (req, res) => {
-    const admin = await Admin.findOne({ email: req.admin.email });
-    res.send(admin);
+  try {
+    const admin = await Admin.findOne({ email: req.admin.email }).populate('hotels');
+    if (!admin) return res.status(404).send('Admin not found');
+
+//    res.status(200).json({ admin });
+      res.send({admin})
+  
+   
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
 });
+
 
 // Admin Logout
 router.get('/AdminLogout', (req, res) => {
@@ -75,27 +95,31 @@ router.get('/AdminLogout', (req, res) => {
     res.status(200).send({ message: 'Logged out successfully' });
 });
 
-// Upload Hotel Image
-router.post('/upload-image', AdminIsLoggedIn, async (req, res) => {
-    const { imageUrl, hotelName, hotelDesc, hotelLocation } = req.body;
+// Upload Hotels
+router.post('/upload-hotel', AdminIsLoggedIn, async (req, res) => {
+    const admin = await Admin.findOne({email:req.admin.email})
 
-    if (!imageUrl || !hotelName || !hotelDesc || !hotelLocation) {
+    const { img, hotelName, hotelDesc, hotelLocation } = req.body;
+    const hotel = new hotelModel({
+        adminId:admin._id,
+        img,
+        hotelName,
+        hotelDesc,
+        hotelLocation
+    })
+
+    if (!img || !hotelName || !hotelDesc || !hotelLocation) {
         return res.status(400).send('All fields are required');
     }
 
-    const admin = await Admin.findOne({ email: req.admin.email });
     if (!admin) {
         return res.status(404).send('Admin not found');
     }
 
-    admin.images.push({
-        img: imageUrl,
-        hotelName,
-        hotelDesc,
-        hotelLocation
-    });
+    admin.hotels.push(hotel._id);
 
     await admin.save();
+    await hotel.save()
 
     res.status(200).send({ message: 'Image and details saved', images: admin.images });
 });
@@ -151,8 +175,8 @@ router.put('/updateHotel/:id', AdminIsLoggedIn, async (req, res) => {
 
 // Get All Hotels
 router.get('/getHotels', async (req, res) => {
-    const admins = await Admin.find({}, 'images');
-    const allHotels = admins.flatMap(admin => admin.images);
+    const allHotels = await hotelModel.find();
+    // const allHotels = admins.flatMap(admin => admin.images);
     res.status(200).json(allHotels);
 });
 
