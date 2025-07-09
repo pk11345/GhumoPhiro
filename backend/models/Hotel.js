@@ -6,8 +6,8 @@ const hotelSchema = new mongoose.Schema({
            ref: 'Admin'
         },
         img: String,
-        hotelName: String,
-        hotelDesc: String,
+        hotelName: String,  
+        hotelDesc: String, 
         hotelLocation: String,
         
 })

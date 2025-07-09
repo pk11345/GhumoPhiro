@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { isAdmin } from '../../redux/action';
 
 const BookingList = () => {
   const [bookings, setBookings] = useState([]);
   const [newBookings, setNewBookings] = useState([]);
   const [previousBookings, setPreviousBookings] = useState([]);
+  
+  const dispatch = useDispatch()
+
+  const adminId = useSelector((state)=>state.admin.adminId)
+  console.log(adminId)
+
+  useEffect(() => {
+  dispatch(isAdmin());
+}, [dispatch]);
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -12,20 +23,26 @@ const BookingList = () => {
         const res = await axios.get('http://localhost:8000/allBookings', {
           withCredentials: true,
         });
+        
+           console.log(res.data,"this is") 
 
         const today = new Date();
         const newList = [];
         const previousList = [];
 
         res.data.forEach((booking) => {
+          
+           if (booking.adminId?.toString() == adminId.toString()) {
           const checkInDate = new Date(booking.checkIn);
           if (checkInDate >= today.setHours(0, 0, 0, 0)) {
             newList.push(booking);
           } else {
             previousList.push(booking);
           }
+        }
         });
-
+        
+        
         setBookings(res.data);
         setNewBookings(newList);
         setPreviousBookings(previousList);
@@ -35,7 +52,10 @@ const BookingList = () => {
     };
 
     fetchBookings();
+    // dispatch(isAdmin())
   }, []);
+
+ 
 
   const renderBookingCard = (booking, index) => (
     <div key={index} className="bg-white rounded-xl shadow-lg p-4 mb-4 text-gray-800">
@@ -56,9 +76,13 @@ const BookingList = () => {
   );
 
   return (
-    <div className="p-4">
-      <h2 className="text-3xl font-bold text-white mb-6">📋 All Bookings</h2>
+   <div className="p-4">
+  <h2 className="text-3xl font-bold text-white mb-6">📋 All Bookings</h2>
 
+  {newBookings.length === 0 && previousBookings.length === 0 ? (
+    <p className='text-red-600'>NO bookings</p>
+  ) : (
+    <>
       {/* New Bookings */}
       <div className="mb-10">
         <h3 className="text-2xl font-bold text-green-400 mb-4">🟢 New Bookings</h3>
@@ -78,7 +102,10 @@ const BookingList = () => {
           <p className="text-white">No past bookings.</p>
         )}
       </div>
-    </div>
+    </>
+  )}
+</div>
+
   );
 };
 

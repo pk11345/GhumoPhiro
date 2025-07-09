@@ -3,6 +3,7 @@ import { AdminLogin, BookedHotel, BookHotelInfo, FetchHotels, FetchImg, hotelId,
 const initialState = {
     img:[],
     admin:{
+        id:"",
         name:"",
         email:""
     },
@@ -24,11 +25,13 @@ export const reducer = (state=initialState,action)=>{
             break;
 
             case AdminLogin:
+                const adminId = action.payload?._id || "";
                   const name = action.payload?.name || "";
                    const email = action.payload?.email || "";
                 return{
                     ...state,
                     admin:{
+                        adminId,
                         name,
                         email
                     }
