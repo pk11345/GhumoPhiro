@@ -7,10 +7,10 @@ const AdminIsLoggedIn = require('../middleware/authAdmin');
 const Booking = require('../models/Booking');
 const hotelModel = require('../models/Hotel');
 
-
+ 
 
 // Admin Signup
-router.post('/AdminSignup', async (req, res) => {
+router.post('/AdminSignup', async (req, res) => { 
     const { name, email, password } = req.body;
 
     let admin = await Admin.findOne({ email });
