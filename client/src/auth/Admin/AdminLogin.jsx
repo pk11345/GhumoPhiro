@@ -21,7 +21,10 @@ const AdminLogin = () => {
     const handleSubmit = (e)=>{
         e.preventDefault()
         
-       axios.post("http://localhost:8000/AdminLogin", formData,{withCredentials:true})
+    //    axios.post("http://localhost:8000/AdminLogin", formData,{withCredentials:true})
+    //    .then((res) => {
+    //        console.log("Response:", res.data);
+    axios.post("https://ghumophiro.onrender.com/AdminLogin", formData,{withCredentials:true})
        .then((res) => {
            console.log("Response:", res.data);
            

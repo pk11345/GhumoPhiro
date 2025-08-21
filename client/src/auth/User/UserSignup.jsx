@@ -21,7 +21,8 @@ const UserSignup = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
     
-        axios.post("http://localhost:8000/UserSignup", formData,{withCredentials:true})
+        // axios.post("http://localhost:8000/UserSignup", formData,{withCredentials:true})
+        axios.post("https://ghumophiro.onrender.com/UserSignup", formData,{withCredentials:true})
         .then((res) => {
             console.log("Response:", res.data);
             if (res.status === 201) {
