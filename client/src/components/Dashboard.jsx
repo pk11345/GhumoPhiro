@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import HomeContent from './HomeContent'
+import { FaBars, FaTimes } from 'react-icons/fa'
 
 const Dashboard = () => {
 
    const [showBox, setShowBox] = useState(false)
+     const [menuOpen, setMenuOpen] = useState(false)
 
   return (
     <>
@@ -17,7 +19,7 @@ const Dashboard = () => {
         </h1>
     <div className='flex gap-3 items-center'>
         {/* <h1>Signup or Login as</h1> */}
-        <ul className='flex text-xl gap-4 items-center cursor-pointer '>
+        <ul className='hidden md:flex text-xl gap-4 items-center cursor-pointer '>
           <li className='hover:bg-black/20 p-2 rounded-xl'>Home</li>
           <li className='hover:bg-black/20 p-2 rounded-xl'>Explore</li>
           <li className='hover:bg-black/20 p-2 rounded-xl'>About</li>
@@ -37,6 +39,15 @@ const Dashboard = () => {
         <button 
         className='pt-1 pb-2 pl-2 pr-2 border-2 border-white rounded-2xl text-lg font-semibold hover:bg-white/40'>
         <Link to="/UserDashboard">Traveler</Link></button> */}
+
+         {/* Mobile Hamburger */}
+          <button 
+            className='md:hidden text-3xl text-white'
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? <FaTimes /> : <FaBars />}
+          </button>
+
          {showBox && (
               <div className="absolute top-14 right-0 bg-white shadow-lg rounded-xl p-4 flex flex-col gap-3 w-[200px] z-50">
                 <h2 className="text-lg font-semibold text-gray-700">Continue as</h2>
@@ -60,6 +71,24 @@ const Dashboard = () => {
     
    
     </div>
+                        {/* Mobile Menu Dropdown */}
+        {menuOpen && (
+          <div className='md:hidden flex flex-col gap-4 bg-gray-700 text-white text-lg p-5'>
+            <span className='hover:bg-black/30 p-2 rounded-xl'>Home</span>
+            <span className='hover:bg-black/30 p-2 rounded-xl'>Explore</span>
+            <span className='hover:bg-black/30 p-2 rounded-xl'>About</span>
+            <span className='hover:bg-black/30 p-2 rounded-xl'>Help</span>
+            <button
+              className='bg-blue-400 p-2 rounded-xl cursor-pointer hover:bg-blue-300'
+              onClick={() => {
+                setShowBox(true)
+                setMenuOpen(false)
+              }}
+            >
+              Login/Signup
+            </button>
+          </div>
+        )}
     </div>
     <HomeContent/>
     </>
