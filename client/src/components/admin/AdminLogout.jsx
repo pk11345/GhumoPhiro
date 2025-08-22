@@ -9,7 +9,8 @@ const AdminLogout = () => {
     
     const handleLogout = async ()=>{
         try{
-             await axios.get("http://localhost:8000/AdminLogout",{withCredentials:true})
+            //  await axios.get("http://localhost:8000/AdminLogout",{withCredentials:true})
+            await axios.get("https://ghumophiro.onrender.com/AdminLogout",{withCredentials:true})
             
             let cookie = document.cookie
                 cookie= "Admintoken="

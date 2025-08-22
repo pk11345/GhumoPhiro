@@ -42,7 +42,7 @@ export const ImgFetch = () => {
   export const isAdmin = ()=>{
     return async (dispatch) => {
       try {
-        const response = await axios.get("http://localhost:8000/AdminDashboard", {
+        const response = await axios.get("https://ghumophiro.onrender.com/AdminDashboard", {
           withCredentials: true,
         });
         
