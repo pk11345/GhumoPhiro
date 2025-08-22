@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import HomeContent from './HomeContent'
 
 const Dashboard = () => {
+
+   const [showBox, setShowBox] = useState(false)
+
   return (
     <>
     <div className='w-full bg-gray-400/70 shadow-2xl shadow-black sticky top-0 z-99'>
@@ -12,16 +15,50 @@ const Dashboard = () => {
         <span><img className='w-[40px]'
         src="/logo.png" alt="" /></span>
         </h1>
-    <div className='flex gap-3'>
+    <div className='flex gap-3 items-center'>
         {/* <h1>Signup or Login as</h1> */}
-        <button 
+        <ul className='flex text-xl gap-4 items-center cursor-pointer '>
+          <li className='hover:bg-black/20 p-2 rounded-xl'>Home</li>
+          <li className='hover:bg-black/20 p-2 rounded-xl'>Explore</li>
+          <li className='hover:bg-black/20 p-2 rounded-xl'>About</li>
+          <li className='hover:bg-black/20 p-2 rounded-xl'>Help</li>
+          <li>
+            <button className='bg-blue-400 p-2 rounded-xl cursor-pointer hover:bg-blue-300 '
+            onClick={() => setShowBox(!showBox)}
+            >
+              Login/Signup
+            </button>
+          </li>
+        </ul>
+        {/* <button 
         className='pt-1 pb-2 pl-2 pr-2 border-2 border-white rounded-2xl text-lg font-semibold hover:bg-white/40'>
           <Link to="/AdminDashboard">Owner</Link>
           </button>
         <button 
         className='pt-1 pb-2 pl-2 pr-2 border-2 border-white rounded-2xl text-lg font-semibold hover:bg-white/40'>
-        <Link to="/UserDashboard">Traveler</Link></button>
+        <Link to="/UserDashboard">Traveler</Link></button> */}
+         {showBox && (
+              <div className="absolute top-14 right-0 bg-white shadow-lg rounded-xl p-4 flex flex-col gap-3 w-[200px] z-50">
+                <h2 className="text-lg font-semibold text-gray-700">Continue as</h2>
+                <Link 
+                  to="/AdminDashboard" 
+                  className="bg-blue-500 text-white py-2 rounded-lg text-center hover:bg-blue-600"
+                  onClick={() => setShowBox(false)}
+                >
+                  Owner
+                </Link>
+                <Link 
+                  to="/UserDashboard" 
+                  className="bg-green-500 text-white py-2 rounded-lg text-center hover:bg-green-600"
+                  onClick={() => setShowBox(false)}
+                >
+                  Traveller
+                </Link>
+              </div>
+     )}
     </div>
+    
+   
     </div>
     </div>
     <HomeContent/>

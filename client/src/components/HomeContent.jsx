@@ -21,7 +21,7 @@ const HomeContent = () => {
   return (
     <div className="text-amber-600 ">
       {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center justify-center bg-black">
+      <section className="relative h-[70vh]  flex items-center justify-center  bg-black">
   <img
     src="https://images.unsplash.com/photo-1566073771259-6a8506099945"
     className="absolute inset-0 w-full h-full object-cover opacity-70"

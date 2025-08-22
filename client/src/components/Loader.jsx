@@ -6,7 +6,7 @@ const Loader = () => {
   return (
     <>
     
-    <div className='min-h-screen flex justify-center items-center '>
+    <div className='min-h-screen flex justify-center items-center bg-gray-400 '>
         
          <div className='text-center animate-bounce'>
          <h1 className='text-6xl text-blue-700 font-bold italic flex '>Ghumo
