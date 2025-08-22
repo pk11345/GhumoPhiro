@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import HomeContent from './HomeContent'
 import { FaBars, FaTimes } from 'react-icons/fa'
+import { AiOutlineClose } from 'react-icons/ai'
 
 const Dashboard = () => {
 
@@ -50,6 +51,14 @@ const Dashboard = () => {
 
          {showBox && (
               <div className="absolute top-14 right-0 bg-white shadow-lg rounded-xl p-4 flex flex-col gap-3 w-[200px] z-50">
+                 {/* Cross button */}
+                <button
+                  className="absolute top-2 right-2 text-gray-600 hover:text-red-500"
+                  onClick={() => setShowBox(false)}
+                >
+                  <AiOutlineClose size={20} />
+                </button>
+                
                 <h2 className="text-lg font-semibold text-gray-700">Continue as</h2>
                 <Link 
                   to="/AdminDashboard" 
