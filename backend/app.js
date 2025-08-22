@@ -11,12 +11,25 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://ghumophiro-1.onrender.com"
+];
+
 app.use(
-    cors({
-        origin: 'http://localhost:5173',
-        credentials: true
-    })
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, origin);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
 );
+
 app.use(cookieParser());
 
 // Connect to DB
