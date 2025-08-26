@@ -1,119 +1,139 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { FaUserCircle, FaHome, FaHotel, FaListAlt, FaBars, FaTimes, FaSignOutAlt } from "react-icons/fa"
+import { ImgFetch, isAdmin } from '../../redux/action'
+import BookingList from './BookingList'
 import AdminLogout from './AdminLogout'
-import { FaUserCircle } from "react-icons/fa";
-import { ToastContainer, toast } from 'react-toastify';
-import AdminContent from './AdminContent';
-import { useDispatch, useSelector } from 'react-redux';
-import { ImgFetch, isAdmin } from '../../redux/action';
+import ImageUpload from './ImageUpload'
+import GetImage from './GetImage'
 
 const AdminDashboard = () => {
-    // const [admin, setAdmin] = useState("")
-  
-    // const navigate = useNavigate()
- const admin = useSelector(state=>state.admin||{})
- const adminName=admin.name||""
-      console.log(adminName)
-     
- 
-     const dispatch = useDispatch()
-  
-  //   useEffect(()=>{
-  
-  //   let info = async ()=>{
-  //     try{
-  //     let response = await axios.get("http://localhost:8000/AdminDashboard",{withCredentials:true})
-  //     console.log(response.data)
-  //     setAdmin(response.data.name)
-  //        dispatch(isAdmin(response.data.name))
-              
-  //     }
-  //     catch(err){
-  //       console.log(err)
-  //       if (err.response && err.response.status === 401) {
-  //         // toast.error("You have to login first");
-  //         // setTimeout(() => navigate("/AdminLogin"), 2000); 
-  //       } 
-  //     }
-  //   }
-  //   info()
-  // },[navigate])
+  const dispatch = useDispatch()
+  const admin = useSelector(state => state.admin || {})
+  const adminName = admin.name || ""
 
-  useEffect(()=>{
+  const [activeTab, setActiveTab] = useState("home")
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  useEffect(() => {
     dispatch(isAdmin())
     dispatch(ImgFetch())
-  },[dispatch])
-    
+  }, [dispatch])
 
- 
-  
-    return (
-      <>
-      <ToastContainer autoClose={2000}/>
-       <div className='w-full bg-gray-400/70 shadow-2xl shadow-black '>
-          <div className='nav w-full flex justify-between pt-3 pb-4 pl-6 pr-6'>
-            <h1 className='text-2xl text-blue-700 font-bold italic flex '>Ghumo
-              <span className='font-extrabold text-white'>Phiro</span>
-              <span><img className='w-[40px]'
-              src="/logo.png" alt="" /></span>
-              </h1>
-          <div className='flex gap-3'>
-          
-      <button 
-      className='pt-1 pb-2 pl-2 pr-2 border-2 border-white rounded-2xl text-lg font-semibold hover:bg-white/40'
-      ><Link to="/AdminDashboard">Home</Link>
-      </button>
-      {!adminName?
-      <>
-      <button
-          className='pt-1 pb-2 pl-2 pr-2 border-2 border-white rounded-2xl text-lg font-semibold hover:bg-white/40'
-          ><Link to="/AdminLogin">Owner Login</Link>
+  return (
+    <div className="flex h-screen bg-white">
+      {/* Sidebar */}
+      <div
+        className={`fixed md:static top-0 left-0 h-full w-64 bg-gray-900 text-white p-5 transition-transform duration-300 ease-in-out z-50
+        ${sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
+      >
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-xl font-bold">Admin Panel</h2>
+          {/* Close Button for Mobile */}
+          <button className="md:hidden" onClick={() => setSidebarOpen(false)}>
+            <FaTimes size={22} />
           </button>
+        </div>
 
-          <button
-          className='pt-1 pb-2 pl-2 pr-2 border-2 border-white rounded-2xl text-lg font-semibold hover:bg-white/40'
-          ><Link to="/AdminSignup">Owner Signup</Link>
+        <ul className="space-y-4">
+          <li
+            onClick={() => {
+              setActiveTab("home")
+              setSidebarOpen(false)
+            }}
+            className={`flex items-center gap-2 cursor-pointer p-2 rounded ${
+              activeTab === "home" ? "bg-gray-700" : "hover:bg-gray-800"
+            }`}
+          >
+            <FaHome /> Home
+          </li>
+          <li
+            onClick={() => {
+              setActiveTab("hotels")
+              setSidebarOpen(false)
+            }}
+            className={`flex items-center gap-2 cursor-pointer p-2 rounded ${
+              activeTab === "hotels" ? "bg-gray-700" : "hover:bg-gray-800"
+            }`}
+          >
+            <FaHotel /> Hotels
+          </li>
+          <li
+            onClick={() => {
+              setActiveTab("bookings")
+              setSidebarOpen(false)
+            }}
+            className={`flex items-center gap-2 cursor-pointer p-2 rounded ${
+              activeTab === "bookings" ? "bg-gray-700" : "hover:bg-gray-800"
+            }`}
+          >
+            <FaListAlt /> Bookings
+          </li>
+          <li
+            onClick={() => {
+              setActiveTab("profile")
+              setSidebarOpen(false)
+            }}
+            className={`flex items-center gap-2 cursor-pointer p-2 rounded ${
+              activeTab === "profile" ? "bg-gray-700" : "hover:bg-gray-800"
+            }`}
+          >
+            <FaUserCircle /> Profile
+          </li>
+          <li>
+            <AdminLogout/>
+              
+          </li>
+        </ul>
+      </div>
+
+      {/* Overlay on Mobile */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        ></div>
+      )}
+
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col">
+        {/* Topbar */}
+        <div className="flex items-center justify-between bg-gray-100 p-4 shadow-md sticky top-0 z-30">
+          {/* Sidebar Toggle */}
+          <button className="md:hidden" onClick={() => setSidebarOpen(true)}>
+            <FaBars size={22} />
           </button>
-      </>  : 
-      <>
-      <h1 className='pt-1 pb-2 pl-2 pr-2 border-2 border-white rounded-2xl text-lg flex items-center gap-2 text-bold 
-       font-semibold hover:bg-white/40 text-white'>
-        
-      <FaUserCircle className='text-red-500 text-xl cursor-pointer' /> 
-      <Link to="/AdminProfile"> {adminName}</Link></h1>
-      <AdminLogout/>
-      </>
-      }
-          
-  
-      
-          </div>
-          </div>
-          </div>
+          <h1 className="text-lg text-black font-bold truncate">
+            Welcome, {adminName}
+          </h1>
+        </div>
 
+        {/* Content Area */}
+        <div className="p-5 overflow-y-auto flex-1 text-black">
+          {activeTab === "home" && (
+            <h2 className="text-2xl font-semibold">Dashboard Overview</h2>
+          )}
 
-        
-          
+          {activeTab === "hotels" && (
+            <div className="space-y-6">
+              <ImageUpload />
+              <GetImage />
+            </div>
+          )}
 
-          <div>
-            {
-              !adminName? 
-              <>
-                <div className='w-full h-[400px] justify-center flex flex-col items-center  pt-6'>
-            <h1 className='text-4xl font-bold italic text-yellow-500'>Want To List Your Property With Us?</h1>
-            <h2 className='text-2xl font-semibold text-black'>Register Or Login To Get Partenered With Us</h2>
-          </div>
+          {activeTab === "bookings" && <BookingList />}
 
-              </>  
-              : <>
-              <AdminContent/>
-              </>
-            }
-          </div>
-   
-      </>
-    )
+          {activeTab === "profile" && (
+            <div className="bg-white p-5 rounded shadow">
+              <h2 className="text-2xl font-semibold mb-3">Admin Profile</h2>
+              <p className="text-black">Name: {adminName}</p>
+              
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default AdminDashboard

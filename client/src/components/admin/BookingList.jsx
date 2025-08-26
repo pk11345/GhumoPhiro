@@ -77,7 +77,7 @@ const BookingList = () => {
 
   return (
    <div className="p-4">
-  <h2 className="text-3xl font-bold text-white mb-6">📋 All Bookings</h2>
+  <h2 className="text-3xl font-bold text-black mb-6">📋 All Bookings</h2>
 
   {newBookings.length === 0 && previousBookings.length === 0 ? (
     <p className='text-red-600'>NO bookings</p>
