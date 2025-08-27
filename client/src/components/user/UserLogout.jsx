@@ -9,7 +9,7 @@ const UserLogout = () => {
     
     const handleLogout = async ()=>{
         try{
-             await axios.get("http://localhost:8000/UserLogout",{withCredentials:true})
+             await axios.get("https://ghumophiro.onrender.com/UserLogout",{withCredentials:true})
             
             let cookie = document.cookie
                 cookie= "token="

@@ -48,7 +48,7 @@ const AdminProfile = () => {
 
   const handleUpdate = async () => {
     try {
-      const res = await axios.put('http://localhost:8000/AdminUpdate', form, {
+      const res = await axios.put('https://ghumophiro.onrender.com/AdminUpdate', form, {
         withCredentials: true,
       });
       alert('Admin updated successfully!');

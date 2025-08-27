@@ -17,7 +17,7 @@ export const BookedHotel = "BookedHotel"
 export const ImgFetch = () => {
     return async (dispatch) => {
       try {
-        const response = await axios.get("http://localhost:8000/AdminDashboard", {
+        const response = await axios.get("https://ghumophiro.onrender.com/AdminDashboard", {
           withCredentials: true,
         });
         
@@ -67,7 +67,7 @@ export const ImgFetch = () => {
   export const isFetchingHotels = ()=>{
     return  async(dispatch)=>{
       try{
-        const res = await axios.get("http://localhost:8000/getHotels", {
+        const res = await axios.get("https://ghumophiro.onrender.com/getHotels", {
           withCredentials: true,
         });
         dispatch({
@@ -88,7 +88,7 @@ export const ImgFetch = () => {
   export const isUser = ()=>{
     return async (dispatch) => {
       try {
-        const response = await axios.get("http://localhost:8000/UserDashboard", {
+        const response = await axios.get("https://ghumophiro.onrender.com/UserDashboard", {
           withCredentials: true,
         });
         

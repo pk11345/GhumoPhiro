@@ -46,7 +46,7 @@ const ImageUpload = () => {
 
     try {
       await axios.post(
-        "http://localhost:8000/upload-hotel",
+        "https://ghumophiro.onrender.com/upload-hotel",
         {
           img: cloudinaryUrl,
           hotelName,

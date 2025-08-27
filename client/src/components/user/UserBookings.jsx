@@ -9,7 +9,7 @@ const UserBookings = () => {
   useEffect(() => {
     const fetchUserBookings = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/myBookings', {
+        const response = await axios.get('https://ghumophiro.onrender.com/myBookings', {
           withCredentials: true,
         });
 

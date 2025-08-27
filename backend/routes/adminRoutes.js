@@ -55,8 +55,8 @@ router.post('/AdminLogin', async (req, res) => {
             httpOnly: true,
             sameSite: 'none',
             secure:true,
-            maxAge: 7 * 24 * 60 * 60 * 1000
-        });
+            maxAge: 2 * 60 * 1000
+        })
         return res.status(200).json({ message: 'Logged in', token });
     } else {
         return res.status(401).send('Invalid credentials');

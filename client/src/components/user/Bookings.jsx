@@ -74,7 +74,7 @@ const Bookings = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:8000/bookHotel', bookingData, {
+      const response = await axios.post('https://ghumophiro.onrender.com/bookHotel', bookingData, {
         withCredentials: true,
       });
 

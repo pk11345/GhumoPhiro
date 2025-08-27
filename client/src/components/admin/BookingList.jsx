@@ -20,7 +20,7 @@ const BookingList = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const res = await axios.get('http://localhost:8000/allBookings', {
+        const res = await axios.get('https://ghumophiro.onrender.com/allBookings', {
           withCredentials: true,
         });
         
