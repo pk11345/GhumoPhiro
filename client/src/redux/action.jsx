@@ -92,7 +92,7 @@ export const ImgFetch = () => {
           withCredentials: true,
         });
         
-        console.log(response.data.name)
+        console.log("name is:",response.data)
         dispatch({
           type: UserLogin,
           payload: response.data,

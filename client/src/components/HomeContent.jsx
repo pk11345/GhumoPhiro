@@ -36,7 +36,7 @@ const HomeContent = () => {
 
 
       {/* About Section */}
-      <section className="py-16 px-4 md:px-20  ">
+      <section className="py-16 px-4 md:px-20  bg-black ">
         <h2 className="text-3xl font-bold text-center mb-6">About Us</h2>
         <p className="max-w-3xl mx-auto text-center text-lg font-semibold text-purple-600
          bg-white/80 p-3 rounded-2xl shadow-2xl shadow-white/40">

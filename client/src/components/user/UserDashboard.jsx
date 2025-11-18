@@ -15,7 +15,7 @@ const UserDashboard = () => {
   const navigate = useNavigate()
 
     const user = useSelector(state=>state.user.name)
-      console.log(user)
+      console.log(user, "this is this is")
 
        const dispatch = useDispatch()
 

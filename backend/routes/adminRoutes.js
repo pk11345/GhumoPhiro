@@ -27,7 +27,7 @@ router.post('/AdminSignup', async (req, res) => {
         password: hashedPassword
     });
 
-    await admin.save();
+    await admin.save(); 
 
     const token = jwt.sign({ email, role: 'admin' }, 'shhhh');
     res.cookie('Admintoken', token, {

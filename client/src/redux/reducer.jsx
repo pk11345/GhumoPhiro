@@ -41,6 +41,7 @@ export const reducer = (state=initialState,action)=>{
                     return{
                         ...state,
                         user:action.payload
+                       
                     }
                     break;
 

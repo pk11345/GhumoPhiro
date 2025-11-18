@@ -50,7 +50,8 @@ router.post('/UserLogin', async (req, res) => {
         const token = jwt.sign({ email, role: 'user' }, 'shhhh');
         res.cookie('token', token, {
             httpOnly: true,
-            sameSite: 'strict',
+            secure: req.protocol === "https",   // true if https, false if http
+            sameSite: req.protocol === "https" ? "none" : "lax", // 'none' for cross-site cookies on https
             maxAge: 7 * 24 * 60 * 60 * 1000
         });
         return res.status(200).json({ message: 'Logged in', token });
@@ -62,7 +63,9 @@ router.post('/UserLogin', async (req, res) => {
 // User Dashboard
 router.get('/UserDashboard', isLoggedIn, async (req, res) => {
     const user = await User.findOne({ email: req.user.email });
-    res.send(user);
+   
+    console.log( res.send(user))
+    console.log(user, "user data")
 });
 
 // User Logout
